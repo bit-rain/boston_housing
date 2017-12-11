@@ -12088,7 +12088,7 @@ Standard deviation of prices: $165,171.13
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO 3 可选</span>
@@ -12097,27 +12097,8 @@ Standard deviation of prices: $165,171.13
 
 <span class="k">def</span> <span class="nf">performance_metric2</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_predict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;计算并返回预测值相比于预测值的分数&quot;&quot;&quot;</span>
-    <span class="n">len_t</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
-    <span class="n">len_p</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_predict</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">len_t</span> <span class="o">!=</span> <span class="n">len_p</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;length error: </span><span class="si">%u</span><span class="s1"> != </span><span class="si">%u</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">len_t</span><span class="p">,</span> <span class="n">len_p</span><span class="p">))</span>
-        
-    <span class="c1"># compute the mean of y_true</span>
-    <span class="n">sum_true</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">y_true</span><span class="p">:</span>
-        <span class="n">sum_true</span> <span class="o">=</span> <span class="n">sum_true</span> <span class="o">+</span> <span class="n">item</span>
-    <span class="n">y_true_mean</span> <span class="o">=</span> <span class="n">sum_true</span> <span class="o">/</span> <span class="n">len_t</span>
-    <span class="c1">#compute residual sum of squares</span>
-    <span class="n">residule_sum_square</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len_t</span><span class="p">):</span>
-        <span class="n">residule_sum_square</span> <span class="o">=</span> <span class="n">residule_sum_square</span> <span class="o">+</span> <span class="p">(</span><span class="n">y_true</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_predict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>  
-    <span class="c1"># compute explained sum of squares</span>
-    <span class="n">explained_sum_square</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len_t</span><span class="p">):</span>
-        <span class="n">explained_sum_square</span> <span class="o">=</span> <span class="n">explained_sum_square</span> <span class="o">+</span> <span class="p">(</span><span class="n">y_true</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_true_mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>  
     
-    <span class="n">score</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">residule_sum_square</span> <span class="o">/</span> <span class="n">explained_sum_square</span>
-    <span class="c1">#score = 1 - ((y_true - y_predict) ** 2).sum() / ((y_true - y_true.mean()) ** 2).sum()</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_predict</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">score</span>
 </pre></div>
@@ -12169,7 +12150,7 @@ Standard deviation of prices: $165,171.13
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 计算这个模型的预测结果的决定系数</span>
